@@ -1,3 +1,32 @@
+---@class MohoScript
+---@field Name fun(self: MohoScript): string
+---@field Version fun(self: MohoScript): string
+---@field Creator fun(self: MohoScript): string
+---@field Description fun(self: MohoScript): string
+---@field BeginnerDescription fun(self: MohoScript): string
+---@field BeginnerDisabledDescription fun(self: MohoScript): string
+---@field UILabel fun(self: MohoScript): string
+---@field IsBeginnerScript fun(self: MohoScript): boolean
+---@field ColorizeIcon fun(self: MohoScript): boolean
+---@field IsRelevant fun(self: MohoScript, moho: ScriptInterface): boolean
+---@field IsEnabled fun(self: MohoScript, moho: ScriptInterface): boolean
+---@field HideConstructionCurves fun(self: MohoScript, moho: ScriptInterface): boolean
+---@field SupportsGPUMode fun(self: MohoScript, moho: ScriptInterface): boolean
+---@field NonDragMouseMove fun(self: MohoScript): boolean
+---@field Run fun(self: MohoScript, moho: ScriptInterface, view: MohoView)
+---@field OnMouseDown fun(self: MohoScript, moho: ScriptInterface, mouseEvent: MouseEvent)
+---@field OnMouseMoved fun(self: MohoScript, moho: ScriptInterface, mouseEvent: MouseEvent)
+---@field OnMouseUp fun(self: MohoScript, moho: ScriptInterface, mouseEvent: MouseEvent)
+---@field OnKeyDown fun(self: MohoScript, moho: ScriptInterface, keyEvent: KeyEvent)
+---@field OnKeyUp fun(self: MohoScript, moho: ScriptInterface, keyEvent: KeyEvent)
+---@field OnInputDeviceEvent fun(self: MohoScript, moho: ScriptInterface, inputDeviceEvent: InputDeviceEvent)
+---@field SavePrefs fun(self: MohoScript, prefs: ScriptPrefs)
+---@field LoadPrefs fun(self: MohoScript, prefs: ScriptPrefs)
+---@field ResetPrefs fun(self: MohoScript)
+---@field DrawMe fun(self: MohoScript, moho: ScriptInterface, view: MohoView)
+---@field DoLayout fun(self: MohoScript, moho: ScriptInterface, layout: any)
+---@field HandleMessage fun(self: MohoScript, moho: ScriptInterface, view: MohoView, msg: number)
+---@field Localize fun(self: MohoScript, text: string): string
 ScriptName = "pfx_ScriptName" -- Provide Moho with the name of this script object
 CHANNEL_LAYER_T = 10000 --Value: 10000 | Ver: 13.5.3
 CHANNEL_LAYER_S = 10001 --Value: 10001 | Ver: 13.5.3
