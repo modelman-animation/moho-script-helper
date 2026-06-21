@@ -1249,11 +1249,11 @@ LM = {}
     LM.GUI = {}
         LM.GUI.LM_Message = {}
         ---instances of LM_Message class can be created by this method locally
-        ---@return BBox 
+        ---@return LM_Message
         function LM.GUI.LM_Message:new_local()
         end
         ---instances of LM_Message class can be created by this method globally
-        ---@return BBox  
+        ---@return LM_Message 
         function LM.GUI.LM_Message:new()
         end
         ---Presents the user with an alert box
@@ -1417,9 +1417,10 @@ LM = {}
         end
         ---The LM_SimpleDialog class is used to create dialog boxes - windows that can be filled with other user interface controls. An LM_SimpleDialog object automatically provides OK and Cancel buttons.
         --- | Ver: < 9.5
+        ---@generic T
         ---@param title string Ver: < 9.5
-        ---@param subClass table Ver: < 9.5
-        ---@return LM_SimpleDialog
+        ---@param subClass T Ver: < 9.5
+        ---@return T | LM_SimpleDialog
         function LM.GUI.SimpleDialog(title, subClass)
         end
         ---Ver: < 9.5
@@ -8810,10 +8811,6 @@ MOHO = {}
             ---@return ScriptInterfaceHelper  
             function MOHO.ScriptInterfaceHelper:new_local()
             end
-            ---Ver: 14.0
-            ---@return nil
-            function MOHO.ScriptInterfaceHelper:delete()
-            end
     ---@class ScriptInterfaceHelper  
     ---The ScriptInterfaceHelper class is a bit special. It allows you to access sensitive resources that must be released when you're done with them. Unlike most objects, it must be explicitly deleted using delete method when you're done using it.  
     ---Version added: 14.0
@@ -8822,6 +8819,11 @@ MOHO = {}
         ---Ver: 14.0
         ---@return ScriptInterface
         function ScriptInterfaceHelper:MohoObject()
+        end
+        ---e.g: helper:delete()
+        ---Ver: 14.0
+        ---@return nil
+        function ScriptInterfaceHelper:delete()
         end
     ---@class ScriptPrefs  
     ---The ScriptPrefs class allows user scripts to store and retrieve settings. These stored settings are re-loaded each time Moho is run.  
