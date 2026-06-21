@@ -1,8 +1,8 @@
 {
   "name": "moho-script-helper",
   "displayName": "Moho Script Helper",
-  "description": "Lua autocomplete and stubs for Moho 14.3+ scripting",
-  "version": "1.0.2",
+  "description": "Lua autocomplete and stubs for Moho scripting",
+  "version": "1.1.0",
   "publisher": "Modelman",
   "icon": "icon.png",
   "repository": {
@@ -24,7 +24,13 @@
     "configurationDefaults": {
       "Lua.completion.callSnippet": "Replace",
       "Lua.diagnostics.disable": ["inject-field"]
-    }
+    },
+    "snippets": [
+      {
+        "language": "lua",
+        "path": "./snippets/moho-snippets.json"
+      }
+    ]
   },
   "scripts": {
     "vscode:prepublish": "npm run compile",

@@ -1,3 +1,7 @@
+---@diagnostic disable
+--@diagnostic disable: duplicate-set-field
+--@diagnostic disable: duplicate-doc-field
+--@diagnostic disable: missing-return
 ---@class MohoScript
 ---@field Name fun(self: MohoScript): string
 ---@field Version fun(self: MohoScript): string
