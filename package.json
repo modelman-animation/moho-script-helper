@@ -28,7 +28,7 @@
     "snippets": [
       {
         "language": "lua",
-        "path": "./snippets/moho-snippets.json"
+        "path": "./snippets/lua.json"
       }
     ]
   },
