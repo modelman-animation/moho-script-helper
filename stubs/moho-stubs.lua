@@ -3,34 +3,62 @@
 --@diagnostic disable: duplicate-doc-field
 --@diagnostic disable: missing-return
 ---@class MohoScript
----@field Name fun(self: MohoScript): string
----@field Version fun(self: MohoScript): string
----@field Creator fun(self: MohoScript): string
----@field Description fun(self: MohoScript): string
----@field BeginnerDescription fun(self: MohoScript): string
----@field BeginnerDisabledDescription fun(self: MohoScript): string
----@field UILabel fun(self: MohoScript): string
----@field IsBeginnerScript fun(self: MohoScript): boolean
----@field ColorizeIcon fun(self: MohoScript): boolean
----@field IsRelevant fun(self: MohoScript, moho: ScriptInterface): boolean
----@field IsEnabled fun(self: MohoScript, moho: ScriptInterface): boolean
----@field HideConstructionCurves fun(self: MohoScript, moho: ScriptInterface): boolean
----@field SupportsGPUMode fun(self: MohoScript, moho: ScriptInterface): boolean
----@field NonDragMouseMove fun(self: MohoScript): boolean
----@field Run fun(self: MohoScript, moho: ScriptInterface, view: MohoView)
----@field OnMouseDown fun(self: MohoScript, moho: ScriptInterface, mouseEvent: MouseEvent)
----@field OnMouseMoved fun(self: MohoScript, moho: ScriptInterface, mouseEvent: MouseEvent)
----@field OnMouseUp fun(self: MohoScript, moho: ScriptInterface, mouseEvent: MouseEvent)
----@field OnKeyDown fun(self: MohoScript, moho: ScriptInterface, keyEvent: KeyEvent)
----@field OnKeyUp fun(self: MohoScript, moho: ScriptInterface, keyEvent: KeyEvent)
----@field OnInputDeviceEvent fun(self: MohoScript, moho: ScriptInterface, inputDeviceEvent: InputDeviceEvent)
----@field SavePrefs fun(self: MohoScript, prefs: ScriptPrefs)
----@field LoadPrefs fun(self: MohoScript, prefs: ScriptPrefs)
----@field ResetPrefs fun(self: MohoScript)
----@field DrawMe fun(self: MohoScript, moho: ScriptInterface, view: MohoView)
----@field DoLayout fun(self: MohoScript, moho: ScriptInterface, layout: any)
----@field HandleMessage fun(self: MohoScript, moho: ScriptInterface, view: MohoView, msg: number)
----@field Localize fun(self: MohoScript, text: string): string
+---Called when the user opens "Help > About Scripts" menu. Returns the script's "long name".
+---@field Name? fun(self: MohoScript): string
+---Returns a version identifier (e.g., "1.0").
+---@field Version? fun(self: MohoScript): string
+---Returns the author's name / designation / affiliation.
+---@field Creator? fun(self: MohoScript): string
+---Returns a long description of what the script does.
+---@field Description? fun(self: MohoScript): string
+---Returns a description shown when beginner mode is on.
+---@field BeginnerDescription? fun(self: MohoScript): string
+---Returns a description shown when the script is disabled for beginners.
+---@field BeginnerDisabledDescription? fun(self: MohoScript): string
+---Returns the label shown in the UI (menu or toolbar).
+---@field UILabel? fun(self: MohoScript): string
+---Returns true if this script should appear in beginner mode.
+---@field IsBeginnerScript? fun(self: MohoScript): boolean
+---Returns true to use Moho 12 UI colorisation for the icon.
+---@field ColorizeIcon? fun(self: MohoScript): boolean
+---Called when the tool is changed and moving in/out of frame zero. If returns false, the tool is not shown in the tools palette.
+---@field IsRelevant? fun(self: MohoScript, moho: ScriptInterface): boolean
+---Called when the tool is changed. If returns false, the tool icon is dimmed.
+---@field IsEnabled? fun(self: MohoScript, moho: ScriptInterface): boolean
+---Returns true to hide construction curves while the script runs.
+---@field HideConstructionCurves? fun(self: MohoScript, moho: ScriptInterface): boolean
+---Returns true to allow GPU mode (if enabled in Moho).
+---@field SupportsGPUMode? fun(self: MohoScript, moho: ScriptInterface): boolean
+---Returns true to have `OnMouseMoved()` called even when the mouse button is not down. Called at script activation.
+---@field NonDragMouseMove? fun(self: MohoScript): boolean
+---Main entry point – called when a button or menu script is activated.
+---@field Run? fun(self: MohoScript, moho: ScriptInterface, view: MohoView)
+---Called when the user presses the left mouse button inside the view.
+---@field OnMouseDown? fun(self: MohoScript, moho: ScriptInterface, mouseEvent: MouseEvent)
+---Called when the mouse is moved while holding the left button (or always if `NonDragMouseMove` is true).
+---@field OnMouseMoved? fun(self: MohoScript, moho: ScriptInterface, mouseEvent: MouseEvent)
+---Called when the user releases the left mouse button.
+---@field OnMouseUp? fun(self: MohoScript, moho: ScriptInterface, mouseEvent: MouseEvent)
+---Called when a keyboard key is pressed.
+---@field OnKeyDown? fun(self: MohoScript, moho: ScriptInterface, keyEvent: KeyEvent)
+---Called when a keyboard key is released.
+---@field OnKeyUp? fun(self: MohoScript, moho: ScriptInterface, keyEvent: KeyEvent)
+---Called when an event on a connected input device (e.g., tablet) occurs.
+---@field OnInputDeviceEvent? fun(self: MohoScript, moho: ScriptInterface, inputDeviceEvent: InputDeviceEvent)
+---Called to save script‑specific preferences. Data is stored in the user settings file.
+---@field SavePrefs? fun(self: MohoScript, prefs: ScriptPrefs)
+---Called at script activation to load preferences.
+---@field LoadPrefs? fun(self: MohoScript, prefs: ScriptPrefs)
+---Called when the reset tool or reset all tools button is pressed. Script should reset its internal variables to defaults.
+---@field ResetPrefs? fun(self: MohoScript)
+---Called when the script needs to draw custom graphics in the view.
+---@field DrawMe? fun(self: MohoScript, moho: ScriptInterface, view: MohoView)
+---Called to lay out custom UI elements (if the script provides a dialog).
+---@field DoLayout? fun(self: MohoScript, moho: ScriptInterface, layout: any)
+---Called when the script receives a custom message (e.g., from UI controls).
+---@field HandleMessage? fun(self: MohoScript, moho: ScriptInterface, view: MohoView, msg: number)
+---Returns a localized version of a text string based on the current UI language. Note: The global function `MOHO.Localize()` is also available.
+---@field Localize? fun(self: MohoScript, text: string): string
 ---@type string
 ScriptName = "pfx_ScriptName" -- Provide Moho with the name of this script object
 CHANNEL_LAYER_T = 10000 --Value: 10000 | Ver: 13.5.3
@@ -1476,7 +1504,7 @@ LM = {}
             ---@return number
             function LM_View:Width()
             end
-            ---@class LM_BaseWidget 
+            ---@class LM_BaseWidget : LM_View
             ---This class is a specialized type of view object. You would never create an LM_BaseWidget object by itself - instead, common controls like buttons and check boxes are types of LM_BaseWidget's.
             LM_View.LM_BaseWidget = {}
                 ---Call this function to force the widget to redraw itself. Ordinarily, widgets take care of this on their own, but you can force it if you need to.
@@ -1484,7 +1512,7 @@ LM = {}
                 ---@return nil
                 function LM_View.LM_BaseWidget:Redraw()
                 end
-                ---@class LM_AngleWidget
+                ---@class LM_AngleWidget : LM_BaseWidget
                 ---The LM_AngleWidget class provides a knob to let the user enter an angle value. To create a new object of this class, use the LM.GUI.AngleWidget method.
                 LM_View.LM_BaseWidget.LM_AngleWidget = {}
                     ---Added in version 14.0
@@ -1510,7 +1538,7 @@ LM = {}
                     ---@return number
                     function LM_View.LM_BaseWidget.LM_AngleWidget:Value()
                     end
-                ---@class LM_Button  
+                ---@class LM_Button : LM_BaseWidget
                 ---The LM_Button class represents a basic push button, like the OK and Cancel buttons in a dialog box. To create a new button, use the LM.GUI.Button or LM.GUI.ImageButton methods.
                 LM_View.LM_BaseWidget.LM_Button = {}
                     ---Added in version 14.4
@@ -1578,7 +1606,7 @@ LM = {}
                     ---@return boolean
                     function LM_View.LM_BaseWidget.LM_Button:Value()
                     end
-                ---@class LM_CheckBox  
+                ---@class LM_CheckBox : LM_BaseWidget 
                 ---The LM_CheckBox class is a check box that can be marked on or off. To create a new object of this class, use the LM.GUI.CheckBox method.
                 LM_View.LM_BaseWidget.LM_CheckBox = {}
                     ---This method sets the value of the check box.
@@ -1604,7 +1632,7 @@ LM = {}
                     ---@return boolean
                     function LM_View.LM_BaseWidget.LM_CheckBox:Value()
                     end
-                ---@class LM_ColorSwatch  
+                ---@class LM_ColorSwatch : LM_BaseWidget 
                 ---The LM_ColorSwatch class lets the user choose a color. It is filled in with the current color selection, and when the user clicks it, a color picker appears to select a new color. To create a new color swatch, you would use the LM.GUI.ColorSwatch method.
                 LM_View.LM_BaseWidget.LM_ColorSwatch = {}
                     ---Ver: 11.0
@@ -1629,10 +1657,10 @@ LM = {}
                     ---@return rgb_color
                     function LM_View.LM_BaseWidget.LM_ColorSwatch:Value()
                     end
-                ---@class LM_Divider  
+                ---@class LM_Divider : LM_BaseWidget  
                 ---The LM_Divider class is a simple vertical or horizontal line used to visually separate user interface elements. To create a new divider, you would use the LM.GUI.Divider method.
                 LM_View.LM_BaseWidget.LM_Divider = {}
-                ---@class LM_DynamicText  
+                ---@class LM_DynamicText : LM_BaseWidget 
                 ---The LM_DynamicText class is used to display a text label in a dialog or toolbar, whose value can change. To create a new dynamic text label, you would use the LM.GUI.DynamicText method.
                 LM_View.LM_BaseWidget.LM_DynamicText = {}
                     ---Sets the value of the text object
@@ -1641,7 +1669,7 @@ LM = {}
                     ---@return nil
                     function LM_View.LM_BaseWidget.LM_DynamicText:SetValue(value)
                     end
-                ---@class LM_ImageTextList  
+                ---@class LM_ImageTextList : LM_BaseWidget 
                 ---LM_ImageTextList widget in a dialog box. To create an object of this class, use the LM.GUI.ImageTextList method.
                 LM_View.LM_BaseWidget.LM_ImageTextList = {}
                     ---Ver: 12.2
@@ -1751,7 +1779,7 @@ LM = {}
                     ---@return boolean|nil
                     function LM_View.LM_BaseWidget.LM_ImageTextList:SetSelItem(arg1, arg2, arg3)
                     end
-                ---@class LM_Menu  
+                ---@class LM_Menu : LM_BaseWidget
                 ---The LM_Menu class represents a list of commands. A menu by itself does not appear in the user interface - it must be attached to an LM_PopupMenu widget in order to be placed in a dialog box or toolbar. To create a new menu, you would use the LM.GUI.Menu method.
                 LM_View.LM_BaseWidget.LM_Menu = {}
                     ---Adds a new command to the bottom of the menu
@@ -1847,7 +1875,7 @@ LM = {}
                     ---@return nil
                     function LM_View.LM_BaseWidget.LM_Menu:UncheckAll()
                     end
-                ---@class LM_PopupDialog
+                ---@class LM_PopupDialog : LM_BaseWidget
                 ---The LM_PopupDialog class creates a popup dialog widget on the screen. Clicking on this object will bring up the actual dialog. To create a new popup dialog widget, you would use the LM.GUI.PopupDialog method.
                 LM_View.LM_BaseWidget.LM_PopupDialog = {}
                     ---Returns the dialog object attached to the popup dialog
@@ -1861,7 +1889,7 @@ LM = {}
                     ---@return nil
                     function LM_View.LM_BaseWidget.LM_PopupDialog:SetDialog(dialog)
                     end
-                ---@class LM_PopupMenu  
+                ---@class LM_PopupMenu : LM_BaseWidget
                 ---The LM_PopupMenu class creates a popup menu widget on the screen. Clicking on this object will bring up the actual menu. To create a new popup menu widget, you would use the LM.GUI.PopupMenu method.
                 LM_View.LM_BaseWidget.LM_PopupMenu = {}
                     ---Returns the menu object attached to the popup menu
@@ -1875,7 +1903,7 @@ LM = {}
                     ---@return nil
                     function LM_View.LM_BaseWidget.LM_PopupMenu:SetMenu(menu)
                     end
-                ---@class LM_RadioButton  
+                ---@class LM_RadioButton : LM_BaseWidget 
                 ---The LM_RadioButton class represents one choice among several. Two or more radio buttons are typically used to let the user choose between mutually exclusive options. When one is selected, the other choices get automatically de-selected. To create a new radio button, you would use the LM.GUI.RadioButton method.
                 LM_View.LM_BaseWidget.LM_RadioButton = {}
                     ---Sets the value of the radio button (whether it is checked or not)
@@ -1889,7 +1917,7 @@ LM = {}
                     ---@return boolean true if checked, false if un-checked
                     function LM_View.LM_BaseWidget.LM_RadioButton:Value()
                     end
-                ---@class LM_ScrollBar  
+                ---@class LM_ScrollBar : LM_BaseWidget  
                 LM_View.LM_BaseWidget.LM_ScrollBar = {}
                     ---Ver: < 9.5
                     ---@param min number Ver: < 9.5
@@ -1923,7 +1951,7 @@ LM = {}
                     ---@return number
                     function LM_View.LM_BaseWidget.LM_ScrollBar:Value()
                     end
-                ---@class LM_ShortButton  
+                ---@class LM_ShortButton : LM_BaseWidget 
                 ---To create a new object of this class use the LM.GUI.ShortButton method.
                 LM_View.LM_BaseWidget.LM_ShortButton = {}
                     ---This message will get sent if the user holds down the Alt key while clicking the button.
@@ -1949,7 +1977,7 @@ LM = {}
                     ---@return nil
                     function LM_View.LM_BaseWidget.LM_ShortButton:SetShiftMessage(shiftMsg)
                     end
-                ---@class LM_Slider  
+                ---@class LM_Slider : LM_BaseWidget
                 LM_View.LM_BaseWidget.LM_Slider = {}
                     ---Ver: < 9.5
                     ---@return number
@@ -2003,10 +2031,10 @@ LM = {}
                     ---@return number
                     function LM_View.LM_BaseWidget.LM_Slider:Value()
                     end
-                ---@class LM_StaticText  
+                ---@class LM_StaticText : LM_BaseWidget 
                 ---The LM_StaticText class is used to display a non-changing text label in a dialog or toolbar. To create a new static text label, you would use the LM.GUI.StaticText method.
                 LM_View.LM_BaseWidget.LM_StaticText = {}
-                ---@class LM_TextControl  
+                ---@class LM_TextControl : LM_BaseWidget 
                 ---The LM_TextControl class displays a box where the user can enter text or numbers. To create a new LM_TextControl, you would use the LM.GUI.TextControl method.
                 LM_View.LM_BaseWidget.LM_TextControl = {}
                     ---Returns the text string contained in the control as a floating-point number
@@ -2063,7 +2091,7 @@ LM = {}
                     ---@return string --the control's text
                     function LM_View.LM_BaseWidget.LM_TextControl:Value()
                     end
-                ---@class LM_TextList  
+                ---@class LM_TextList : LM_BaseWidget 
                 ---The LM_TextList class provides a scrollable list of text items. To create a new text list, you would use the LM.GUI.TextList method.
                 LM_View.LM_BaseWidget.LM_TextList = {}
                     ---Adds a new text item to the end of the list
@@ -2124,7 +2152,7 @@ LM = {}
                     ---@return boolean|nil --true if the item exists and is selected, false if the item cannot be found
                     function LM_View.LM_BaseWidget.LM_TextList:SetSelItem(arg1, arg2)
                     end
-            ---@class LM_LayoutView  
+            ---@class LM_LayoutView : LM_View 
             ---The LM_LayoutView class is used to arrange other user interface objects in a dialog box or toolbar. You never create a layout view yourself - it is provided for you when you create a dialog box or fill in a toolbar.
             LM_View.LM_LayoutView = {}  
                 ---Add a new widget to the layout. Use this to add user interface controls one at a time to a dialog box.
@@ -2270,7 +2298,7 @@ LM = {}
         ---@class LM_Dialog  
         ---Parent class for LM_SimpleDialog.
         LM_Dialog = {}
-            ---@class LM_SimpleDialog  
+            ---@class LM_SimpleDialog : LM_Dialog 
             ---The LM_SimpleDialog class is used to create dialog boxes - windows that can be filled with other user interface controls. An LM_SimpleDialog object automatically provides OK and Cancel buttons. To create a new object of this class, use the LM.GUI.SimpleDialog method.
             LM_Dialog.LM_SimpleDialog = {}
                 ---Displays the dialog box on screen in a modal fashion (meaning that nothing else will happen in Moho until the user presses OK or Cancel in the dialog)
@@ -2667,7 +2695,7 @@ LM = {}
             ---@return boolean returns true if the point is visible on screen, false otherwise
             function LM_Graphics:WorldToScreen(arg1, arg2)
             end
-            ---@class LM_Graphics_OpenGL_Fixed  
+            ---@class LM_Graphics_OpenGL_Fixed : LM_Graphics  
             ---Added in 11.1
             LM_Graphics.LM_Graphics_OpenGL_Fixed = {}
                 ---Added in version 14.0 to replace LM_Graphics_OpenGL_Fixed:OpenGLMode
@@ -3017,7 +3045,7 @@ MOHO = {}
         end
         ---Clears a channel, removing all keyframes.
         --- | Ver: < 9.5
-        ---@param zeroFrame number Ver: < 9.5
+        ---@param zeroFrame number|nil Ver: < 9.5
         ---@return nil
         function AnimChannel:Clear(zeroFrame)
         end
@@ -3209,7 +3237,7 @@ MOHO = {}
         ---@return nil
         function AnimChannel:SwapKeys(id1, id2)
         end
-        ---@class AnimBool  
+        ---@class AnimBool : AnimChannel
         ---@field value boolean --The current value of the channel. | Ver: < 9.5
         ---The AnimBool class represents an animated sequence of on/off values.
         AnimChannel.AnimBool = {}
@@ -3237,7 +3265,7 @@ MOHO = {}
             ---@return nil
             function AnimChannel.AnimBool:SetValueByID(id, val)
             end
-        ---@class AnimColor 
+        ---@class AnimColor : AnimChannel
         ---@field value rgb_color --The current value of the channel. | Ver: < 9.5 
         ---The AnimColor class represents an animated sequence of color values.
         AnimChannel.AnimColor = {}
@@ -3269,7 +3297,7 @@ MOHO = {}
             ---@return nil  
             function AnimChannel.AnimColor:SetValueByID(id, val)  
             end  
-        ---@class AnimString  
+        ---@class AnimString : AnimChannel
         ---@field value String --The current value of the channel. | Ver: < 9.5
         ---The AnimString class represents an animated sequence of text values.
         AnimChannel.AnimString = {}
@@ -3297,7 +3325,7 @@ MOHO = {}
             ---@return nil
             function AnimChannel.AnimString:SetValueByID(id, value)
             end
-        ---@class AnimVal  
+        ---@class AnimVal : AnimChannel 
         ---@field value number --The current value of the channel. | Ver: < 9.5
         ---The AnimVal class represents an animated sequence of numerical values.
         AnimChannel.AnimVal = {}
@@ -3325,7 +3353,7 @@ MOHO = {}
             ---@return nil
             function AnimChannel.AnimVal:SetValueByID(id, val)
             end
-        ---@class AnimVec2  
+        ---@class AnimVec2 : AnimChannel
         ---@field value Vector2 --The current value of the channel. | Ver: < 9.5
         ---The AnimVec2 class represents an animated sequence of 2D vector values.
         AnimChannel.AnimVec2 = {}
@@ -3371,7 +3399,7 @@ MOHO = {}
             ---@return nil
             function AnimChannel.AnimVec2:SyncSplitDimensionsBack()
             end
-        ---@class AnimVec3  
+        ---@class AnimVec3 : AnimChannel 
         ---@field value Vector3 --The current value of the channel. | Ver: < 9.5
         ---The AnimVec3 class represents an animated sequence of 3D vector values.
         AnimChannel.AnimVec3 = {}
@@ -4263,7 +4291,7 @@ MOHO = {}
         ---@return string
         function MohoLayer:UUID()
         end
-        ---@class AudioLayer  
+        ---@class AudioLayer : MohoLayer
         ---@field fAudioLevel AnimVal --Ver: < 9.5
         ---@field fJumpToFrame AnimVal --Ver: < 9.5
         MohoLayer.AudioLayer = {}
@@ -4338,7 +4366,7 @@ MOHO = {}
             ---@return boolean
             function MohoLayer.AudioLayer:SpatialPositioning()
             end
-            ---@class ImageLayer
+            ---@class ImageLayer : AudioLayer
             MohoLayer.AudioLayer.ImageLayer = {}
             ---Ver: < 9.5
             ---@param seedPt Vector2 Ver: < 9.5
@@ -4586,7 +4614,7 @@ MOHO = {}
             ---@return number
             function MohoLayer.AudioLayer.ImageLayer:Width()
             end
-        ---@class GroupLayer
+        ---@class GroupLayer : MohoLayer
         MohoLayer.GroupLayer = {}
             ---Returns the number of sub-layers in the group.
             --- | Ver: < 9.5
@@ -4771,7 +4799,7 @@ MOHO = {}
             ---@return boolean
             function MohoLayer.GroupLayer:UsingBakedPhysics()
             end
-            ---@class BoneLayer
+            ---@class BoneLayer : GroupLayer
             ---@field fGravityDirection AnimVal --Added in version 14.0 | Ver: 14.0
             ---@field fGravityStrength AnimVal --Added in version 14.0 | Ver: 14.0
             ---@field fWindDirection AnimVal --Ver: 13.5.2
@@ -4821,7 +4849,7 @@ MOHO = {}
                 ---@return M_Skeleton
                 function MohoLayer.GroupLayer.BoneLayer:Skeleton()
                 end
-        ---@class Mesh3DLayer
+        ---@class Mesh3DLayer : MohoLayer
         ---@field f3DOptions Mesh3DOptions --Ver: < 9.5
         MohoLayer.Mesh3DLayer = {}
             ---Returns the edge offset used when drawing the edges of this 3D object.
@@ -4885,7 +4913,7 @@ MOHO = {}
             ---@return nil
             function MohoLayer.Mesh3DLayer:UpdatePoserParameters()
             end
-        ---@class MeshLayer
+        ---@class MeshLayer : MohoLayer
         MohoLayer.MeshLayer = {}
             ---Ver: 13.5.2
             ---@return boolean
@@ -4986,7 +5014,7 @@ MOHO = {}
             ---@return nil
             function MohoLayer.MeshLayer:UpdateWarpMesh()
             end
-        ---@class NoteLayer
+        ---@class NoteLayer : MohoLayer
         MohoLayer.NoteLayer = {}
             ---Ver: < 9.5
             ---@return string
@@ -4997,7 +5025,7 @@ MOHO = {}
             ---@return nil
             function MohoLayer.NoteLayer:SetNoteText(text)
             end
-        ---@class ParticleLayer
+        ---@class ParticleLayer : MohoLayer
         MohoLayer.ParticleLayer = {}
             ---Ver: < 9.5
             ---@return number
@@ -5205,7 +5233,7 @@ MOHO = {}
             ---@return boolean
             function MohoLayer.ParticleLayer:UseBaseLayerAsSource()
             end
-        ---@class SwitchLayer
+        ---@class SwitchLayer : MohoLayer
         MohoLayer.SwitchLayer = {}
             ---Ver: < 9.5
             ---@return boolean
@@ -5423,7 +5451,7 @@ MOHO = {}
         ---@return nil
         function LayerComp:SetName(inName)
         end
-    ---@class LM_FontPreview  
+    ---@class LM_FontPreview : LM_View 
     ---The LM_FontPreview class is a user interface class that is used in a dialog to preview what a font will look like.
     LM_View.LM_FontPreview = {}
         ---Force the preview to redraw itself.
@@ -5443,7 +5471,7 @@ MOHO = {}
         ---@return nil
         function LM_View.LM_FontPreview:SetPreviewText(text)
         end
-    ---@class LM_MeshPreview  
+    ---@class LM_MeshPreview : LM_View  
     ---The LM_MeshPreview class is a user interface class that is used in a dialog to preview what a vector mesh will look like. This can be used by a script that generates 2D vector shapes, giving the user a chance to see the result before it is inserted into the Moho document.
     LM_View.LM_MeshPreview = {}
         ---Automatically zooms in on the mesh so that it fills the preview region.
@@ -5745,9 +5773,9 @@ MOHO = {}
         ---This method accepts multiple input formats: ColorVector:Set(0-1, 0-1, 0-1) | ColorVector:Set(0-1, 0-1, 0-1, 0-1) | ColorVector:Set(rgb_color) | ColorVector:Set(ColorVector)
         ---Mark a point in editing that the user can "undo" to return to. NOTE: The original Moho 5.6 documentation stated that passing nil as the argument marks a forthcoming operation as "not undoable". However, it looks like in modern versions, perhaps from version 11, passing nil works for the entire document, not a single layer.
         --- | Ver: < 9.5 | Ver: 12.2
-        ---@param arg1 string Ver: 12.2
-        ---@param arg2 MohoLayer The layer that is about to be modified | Ver: < 9.5
-        ---@param arg3 boolean|nil Default: false | Ver: 11.0
+        ---@param arg1 string|nil Ver: 12.2
+        ---@param arg2 MohoLayer|nil|boolean The layer that is about to be modified | Ver: < 9.5
+        ---@param arg3 boolean|nil|boolean Default: false | Ver: 11.0
         ---@param arg4 boolean|nil Default: false | Ver: 14.0
         ---@return nil
         function MohoDoc:PrepUndo(arg1, arg2, arg3, arg4)
@@ -6024,7 +6052,7 @@ MOHO = {}
     ---@field fLayerStyle number      --Ver: < 9.5
     ---@field fLineStyle number     --Ver: < 9.5
     MohoRenderStyle = {}
-    ---@class MohoView
+    ---@class MohoView : LM_View
     ---The MohoView class is a script's interface to the Moho editing view.
     LM_View.MohoView = {}
         --- Causes the view to completely redraw the current scene.
@@ -8871,7 +8899,7 @@ MOHO = {}
         function TrackingPoint:StartFrame()
         end
 
-    ---@class XGraphics  
+    ---@class XGraphics : LM_Graphics_OpenGL_Fixed 
     ---The XGraphics class provides no additional functions for scripts to use at this time.  
     ---LM_Graphics > LM_Graphics_OpenGL_Fixed > XGraphics  
     ---Version added: before 9.5
