@@ -27,6 +27,7 @@
 ---@field DoLayout fun(self: MohoScript, moho: ScriptInterface, layout: any)
 ---@field HandleMessage fun(self: MohoScript, moho: ScriptInterface, view: MohoView, msg: number)
 ---@field Localize fun(self: MohoScript, text: string): string
+---@type string
 ScriptName = "pfx_ScriptName" -- Provide Moho with the name of this script object
 CHANNEL_LAYER_T = 10000 --Value: 10000 | Ver: 13.5.3
 CHANNEL_LAYER_S = 10001 --Value: 10001 | Ver: 13.5.3
@@ -370,6 +371,12 @@ LM = {}
     ---@return nil 
     function LM:Snooze(msec)
     end
+    ---Create a folder
+    --- | Ver: 14.4
+    ---@param path string Path to the new folder | Ver: 14.4
+    ---@return boolean --True if the folder successfully created
+    function LM:CreateDir(path)
+    end
     ---@class BBox 
     ---@field fMax Vector3 --Ver: < 9.5
     ---@field fMin Vector3 --Ver: < 9.5
@@ -611,6 +618,162 @@ LM = {}
         ---@return hsv_color
         function LM.hsv_color:new()
         end
+    ---@class Math
+    ---Math module added in version 14.4. Provides mathematical utility functions.
+    -- NOTE: All methods and properties of this class are static (which means they can be used without creating an instance of the class).
+    Math = {}
+        LM.Math = {}
+        ---Check if two angles are equivalent within a threshold.
+        --- | Ver: 14.4
+        ---@param a1 number --Ver: 14.4
+        ---@param a2 number --Ver: 14.4
+        ---@param threshold number|nil --Ver: 14.4
+        ---@return boolean --Ver: 14.4
+        function LM.Math:AnglesEquivalent(a1, a2, threshold)
+        end
+        ---Returns 1 or -1, taking into account angles over 180 or under -180.
+        --- | Ver: 14.4
+        ---@param angle number --Ver: 14.4
+        ---@return number --Ver: 14.4
+        function LM.Math:AngleSign(angle)
+        end
+        ---Cerp (circular interpolation).
+        --- | Ver: 14.4
+        ---@param percent number --Ver: 14.4
+        ---@param min number --Ver: 14.4
+        ---@param max number --Ver: 14.4
+        ---@param norm1 Vector2 --Ver: 14.4
+        ---@param norm2 Vector2 --Ver: 14.4
+        ---@return number --Ver: 14.4
+        function LM.Math:Cerp(percent, min, max, norm1, norm2)
+        end
+        ---Modulo operation that works for both positive and negative numbers.
+        --- | Ver: 14.4
+        ---@param x number --Ver: 14.4
+        ---@param n number --Ver: 14.4
+        ---@return number --Ver: 14.4
+        function LM.Math:Mod(x, n)
+        end
+        ---Noise function.
+        --- | Ver: 14.4
+        ---@param pos Vector3 --Ver: 14.4
+        ---@param amp number --Ver: 14.4
+        ---@param freq number --Ver: 14.4
+        ---@return number --Ver: 14.4
+        function LM.Math:Noise(pos, amp, freq)
+        end
+        ---Noise vector function.
+        --- | Ver: 14.4
+        ---@param pos Vector3 --Ver: 14.4
+        ---@param amp number --Ver: 14.4
+        ---@param freq number --Ver: 14.4
+        ---@return Vector3 --Ver: 14.4
+        function LM.Math:NoiseVector(pos, amp, freq)
+        end
+        ---2D Noise vector function.
+        --- | Ver: 14.4
+        ---@param pos Vector2 --Ver: 14.4
+        ---@param amp number --Ver: 14.4
+        ---@param freq number --Ver: 14.4
+        ---@param randSeed number --Ver: 14.4
+        ---@return Vector2 --Ver: 14.4
+        function LM.Math:NoiseVector2D(pos, amp, freq, randSeed)
+        end
+        ---Returns an equivalent angle in the range 0 to 2PI.
+        --- | Ver: 14.4
+        ---@param a number --Ver: 14.4
+        ---@return number --Ver: 14.4
+        function LM.Math:NormalizeAngle(a)
+        end
+        ---Check if two real numbers are equal within a threshold.
+        --- | Ver: 14.4
+        ---@param r1 number --Ver: 14.4
+        ---@param r2 number --Ver: 14.4
+        ---@param threshold number|nil --Ver: 14.4
+        ---@return boolean --Ver: 14.4
+        function LM.Math:RealEqual(r1, r2, threshold)
+        end
+        ---Check if two 64-bit real numbers are equal within a threshold.
+        --- | Ver: 14.4
+        ---@param r1 number --Ver: 14.4
+        ---@param r2 number --Ver: 14.4
+        ---@param threshold number|nil --Ver: 14.4
+        ---@return boolean --Ver: 14.4
+        function LM.Math:RealEqual64(r1, r2, threshold)
+        end
+        ---Slerp (spherical linear interpolation).
+        --- | Ver: 14.4
+        ---@param percent number --Ver: 14.4
+        ---@param min number --Ver: 14.4
+        ---@param max number --Ver: 14.4
+        ---@return number --Ver: 14.4
+        function LM.Math:Slerp(percent, min, max)
+        end
+        ---Spline interpolation.
+        --- | Ver: 14.4
+        ---@param xVal number --Ver: 14.4
+        ---@param min Vector2 --Ver: 14.4
+        ---@param inA Vector2 --Ver: 14.4
+        ---@param inB Vector2 --Ver: 14.4
+        ---@param max Vector2 --Ver: 14.4
+        ---@return number --Ver: 14.4
+        function LM.Math:SplineInterp(xVal, min, inA, inB, max)
+        end
+        ---Spline interpolation 2D.
+        --- | Ver: 14.4
+        ---@param xVal number --Ver: 14.4
+        ---@param preVal Vector2 --Ver: 14.4
+        ---@param min Vector2 --Ver: 14.4
+        ---@param max Vector2 --Ver: 14.4
+        ---@param postVal Vector2 --Ver: 14.4
+        ---@return number --Ver: 14.4
+        function LM.Math:SplineInterp2(xVal, preVal, min, max, postVal)
+        end
+        ---Spline interpolation 3D.
+        --- | Ver: 14.4
+        ---@param xVal number --Ver: 14.4
+        ---@param preVal Vector2 --Ver: 14.4
+        ---@param min Vector2 --Ver: 14.4
+        ---@param max Vector2 --Ver: 14.4
+        ---@param postVal Vector2 --Ver: 14.4
+        ---@return number --Ver: 14.4
+        function LM.Math:SplineInterp3(xVal, preVal, min, max, postVal)
+        end
+        ---Spline interpolation 4D.
+        --- | Ver: 14.4
+        ---@param xVal number --Ver: 14.4
+        ---@param preVal Vector2 --Ver: 14.4
+        ---@param min Vector2 --Ver: 14.4
+        ---@param max Vector2 --Ver: 14.4
+        ---@param postVal Vector2 --Ver: 14.4
+        ---@return number --Ver: 14.4
+        function LM.Math:SplineInterp4(xVal, preVal, min, max, postVal)
+        end
+        ---Turbulence function.
+        --- | Ver: 14.4
+        ---@param pos Vector3 --Ver: 14.4
+        ---@param amp number --Ver: 14.4
+        ---@param scale number --Ver: 14.4
+        ---@return number --Ver: 14.4
+        function LM.Math:Turbulence(pos, amp, scale)
+        end
+        ---Turbulence vector function.
+        --- | Ver: 14.4
+        ---@param pos Vector3 --Ver: 14.4
+        ---@param amp number --Ver: 14.4
+        ---@param scale number --Ver: 14.4
+        ---@return Vector3 --Ver: 14.4
+        function LM.Math:TurbulenceVector(pos, amp, scale)
+        end
+        ---2D Turbulence vector function.
+        --- | Ver: 14.4
+        ---@param pos Vector2 --Ver: 14.4
+        ---@param amp number --Ver: 14.4
+        ---@param scale number --Ver: 14.4
+        ---@param randSeed number --Ver: 14.4
+        ---@return Vector2 --Ver: 14.4
+        function LM.Math:TurbulenceVector2D(pos, amp, scale, randSeed)
+        end
     ---@class Matrix
     ---The Matrix class is used to represent a 4x4 transformation matrix. Matrix objects are used to transform points in 3D space.
     Matrix = {}
@@ -622,6 +785,21 @@ LM = {}
         ---Instances of Matrix can be created by this method globally
         ---@return Matrix
         function LM.Matrix:new()
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return Vector3 --Ver: 14.4
+        function Matrix:GetScale()
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return Vector3 --Ver: 14.4
+        function Matrix:GetTranslation()
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return number --Ver: 14.4
+        function Matrix:GetZRotation()
         end
         ---Set the matrix to be an identity matrix. An identity matrix has no transformation - any vectors transformed by it will retain their original positions. Use this function to reset a matrix before creating a different transformation.
         --- | Ver: < 9.5
@@ -767,6 +945,49 @@ LM = {}
         ---Instances of rgb_color can be created by this method globally
         ---@return rgb_color
         function LM.rgb_color:new()
+        end
+        ---@class Stopwatch
+    ---@class Stopwatch
+    ---Stopwatch module added in version 14.4. Provides timing functionality.
+    Stopwatch = {}
+        LM.Stopwatch = {}
+        ---Instances of Stopwatch can be created by this method locally
+        ---@return Stopwatch --Ver: 14.4
+        function LM.Stopwatch:new_local()
+        end
+        ---Instances of Stopwatch can be created by this method globally
+        ---@return Stopwatch --Ver: 14.4
+        function LM.Stopwatch:new()
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return number --Ver: 14.4
+        function Stopwatch:ElapsedTime()
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return boolean --Ver: 14.4
+        function Stopwatch:IsRunning()
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return nil
+        function Stopwatch:Pause()
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return nil
+        function Stopwatch:Resume()
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return nil
+        function Stopwatch:Start()
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return nil
+        function Stopwatch:Stop()
         end
     ---@class String
     String = {}  
@@ -974,6 +1195,9 @@ LM = {}
     ---@field KEY_UP number        --The up arrow key | Value: -11 | Ver: < 9.5
     ---@field DEFAULT_INDENT number  --The default amount of indentation | Value: 16 | Ver: < 9.5
     ---@field DEFAULT_PADDING number --The default amount of padding | Value: 8 | Ver: < 9.5
+    ---@field BUT_LEFT number --Value: 1 | Ver: 14.4
+    ---@field BUT_MIDDLE number --Value: 4 | Ver: 14.4
+    ---@field BUT_RIGHT number --Value: 2 | Ver: 14.4
     ---@field FIELD_FLOAT number   --A text control that only accepts floating-point input | Value: 2 | Ver: < 9.5
     ---@field FIELD_INT number     --A text control that only accepts integer input | Value: 1 | Ver: < 9.5
     ---@field FIELD_NODIGITS number --A text control that does not accept any numerical input | Value: 5 | Ver: < 9.5
@@ -1285,16 +1509,35 @@ LM = {}
                 ---@class LM_Button  
                 ---The LM_Button class represents a basic push button, like the OK and Cancel buttons in a dialog box. To create a new button, use the LM.GUI.Button or LM.GUI.ImageButton methods.
                 LM_View.LM_BaseWidget.LM_Button = {}
+                    ---Added in version 14.4
+                    --- | Ver: 14.4
+                    ---@param path string --Ver: 14.4
+                    ---@param recolor boolean|nil --Ver: 14.4
+                    ---@return nil
+                    function LM_View.LM_BaseWidget.LM_Button:ReplaceImage(path, recolor)
+                    end
                     ---This message will get sent if the user holds down the alt key while clicking the button. (Added in version 10)
                     ---| Ver: 10.0
                     ---@param alternateMsg number Ver: 10.0
                     ---@return nil
                     function LM_View.LM_BaseWidget.LM_Button:SetAlternateMessage(alternateMsg)
                     end
+                    ---Same as SetAlternateMessage, but with better naming now that we support Shift and Ctrl too.
+                    --- | Ver: 14.4
+                    ---@param altMessage number --Ver: 14.4
+                    ---@return nil
+                    function LM_View.LM_BaseWidget.LM_Button:SetAltMessage(altMessage)
+                    end
                     ---Ver: 10.0
                     ---@param intervalSecs number Ver: 10.0
                     ---@return nil
                     function LM_View.LM_BaseWidget.LM_Button:SetContinuousMessages(intervalSecs)
+                    end
+                    ---This message will get sent if the user holds down the Ctrl key while clicking the button.
+                    --- | Ver: 14.4
+                    ---@param alternateMsg number --Ver: 14.4
+                    ---@return nil
+                    function LM_View.LM_BaseWidget.LM_Button:SetCtrlMessage(alternateMsg)
                     end
                     ---Ver: 10.0
                     ---@param img string Ver: 10.0
@@ -1310,6 +1553,12 @@ LM = {}
                     ---@param adjustSize boolean|nil Default: true | Ver: 10.0
                     ---@return nil
                     function LM_View.LM_BaseWidget.LM_Button:SetLabel(label, adjustSize)
+                    end
+                    ---This message will get sent if the user holds down the Shift key while clicking the button.
+                    --- | Ver: 14.4
+                    ---@param alternateMsg number --Ver: 14.4
+                    ---@return nil
+                    function LM_View.LM_BaseWidget.LM_Button:SetShiftMessage(alternateMsg)
                     end
                     ---Ver: 10.0
                     ---@param tooltip string Ver: 10.0
@@ -1673,10 +1922,28 @@ LM = {}
                 ---@class LM_ShortButton  
                 ---To create a new object of this class use the LM.GUI.ShortButton method.
                 LM_View.LM_BaseWidget.LM_ShortButton = {}
+                    ---This message will get sent if the user holds down the Alt key while clicking the button.
+                    --- | Ver: 14.4
+                    ---@param altMsg number --Ver: 14.4
+                    ---@return nil
+                    function LM_View.LM_BaseWidget.LM_ShortButton:SetAltMessage(altMsg)
+                    end
+                    ---This message will get sent if the user holds down the Ctrl key while clicking the button.
+                    --- | Ver: 14.4
+                    ---@param ctrlMsg number --Ver: 14.4
+                    ---@return nil
+                    function LM_View.LM_BaseWidget.LM_ShortButton:SetCtrlMessage(ctrlMsg)
+                    end
                     ---Ver: 13.5.2
                     ---@param label string Ver: 13.5.2
                     ---@return nil
                     function LM_View.LM_BaseWidget.LM_ShortButton:SetLabel(label)
+                    end
+                    ---This message will get sent if the user holds down the Shift key while clicking the button.
+                    --- | Ver: 14.4
+                    ---@param shiftMsg number --Ver: 14.4
+                    ---@return nil
+                    function LM_View.LM_BaseWidget.LM_ShortButton:SetShiftMessage(shiftMsg)
                     end
                 ---@class LM_Slider  
                 LM_View.LM_BaseWidget.LM_Slider = {}
@@ -2601,9 +2868,15 @@ MOHO = {}
     ---@param moho ScriptInterface
     function MOHO.RunUpdateTable(moho) 
     end
-    function MOHO.BM_COLORRandomRange(min, max)
+    function MOHO.RandomRange(min, max)
     end
     function MOHO.MultiplyColor(color, amount)
+    end
+    ---@param f number 
+    ---@param textControl LM_TextControl
+    ---@param tolerance number
+    ---@return nil
+    function MOHO.FloatEqualToText(f, textControl, tolerance)
     end
     ---@param moho ScriptInterface
     ---@param layer MohoLayer
@@ -2637,6 +2910,11 @@ MOHO = {}
     -- converts a user value from 0..100 to a curve simplification epsilon value
     function MOHO.SimplifyEpsilon(userValue)
     end 
+    ---@param mesh M_Mesh
+    ---@param frame number
+    ---@return nil
+    function MOHO:ConnectSelectedCurves(mesh, frame)
+    end
     MOHO.InterpSetting = {}
         ---instances of InterpSetting class can be created by this method locally
         ---@return InterpSetting
@@ -2672,6 +2950,17 @@ MOHO = {}
         ---instances of MohoLayerRefSyncOptions class can be created by this method globally
         ---@return MohoLayerRefSyncOptions 
         function MOHO.MohoLayerRefSyncOptions:new()
+        end
+        MOHO.MohoLayerRenderOptions = {}
+        ---Instances of MohoLayerRenderOptions can be created by this method locally
+        --- | Ver: 14.4
+        ---@return MohoLayerRenderOptions --Ver: 14.4
+        function MOHO.MohoLayerRenderOptions:new_local()
+        end
+        ---Instances of MohoLayerRenderOptions can be created by this method globally
+        --- | Ver: 14.4
+        ---@return MohoLayerRenderOptions --Ver: 14.4
+        function MOHO.MohoLayerRenderOptions:new()
         end
     MOHO.MohoLayerChannel = {}
         ---instances of MohoLayerChannel class can be created by this method locally
@@ -3269,6 +3558,12 @@ MOHO = {}
         ---@return BBox
         function MohoLayer:Bounds(frame)
         end
+        ---This function is only a first guess when caching an image for a layer. The actual bounds will be different after trimming away transparent.
+        --- | Ver: 14.4
+        ---@param frame number --Ver: 14.4
+        ---@return BBox --Ver: 14.4
+        function MohoLayer:BoundsForCaching(frame)
+        end
         ---Ver: 11.0
         ---@return nil
         function MohoLayer:BreakLayerReference()
@@ -3306,6 +3601,12 @@ MOHO = {}
         ---Ver: 9.5
         ---@return M_Skeleton
         function MohoLayer:ControllingSkeleton()
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@param fromLayer MohoLayer --Ver: 14.4
+        ---@return nil
+        function MohoLayer:CopyFlexiBoneSubset(fromLayer)
         end
         ---Creates keys at toFrame in each of layer's channels (including ones with no animation) with values taken from fromFrame.
         --- | Ver: < 9.5
@@ -3364,6 +3665,11 @@ MOHO = {}
         ---@return nil
         function MohoLayer:DeleteParentBone(boneID)
         end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return nil
+        function MohoLayer:DisableFlexiBoneSubset()
+        end
         ---Ver: 10.0
         ---@param docFrame number Ver: < 9.5
         ---@return number
@@ -3376,6 +3682,11 @@ MOHO = {}
         ---Ver: < 9.5
         ---@return boolean
         function MohoLayer:DoesRotateToFollow()
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return nil
+        function MohoLayer:EnableFlexiBoneSubset()
         end
         ---Ver: < 9.5
         ---@return number
@@ -3497,6 +3808,22 @@ MOHO = {}
         --- | Ver: < 9.5
         ---@return boolean
         function MohoLayer:IsEditOnly()
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return boolean --Ver: 14.4
+        function MohoLayer:IsElbowBindInEffect()
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@param doc MohoDoc --Ver: 14.4
+        ---@param forRendering boolean --Ver: 14.4
+        ---@param strictSwitchLayers boolean|nil --Ver: 14.4
+        ---@param atDocFrame number|nil --Ver: 14.4
+        ---@param ignoreSmartBones boolean|nil --Ver: 14.4
+        ---@param ignoreParentLayers boolean|nil --Ver: 14.4
+        ---@return boolean --Ver: 14.4
+        function MohoLayer:IsFullyVisible(doc, forRendering, strictSwitchLayers, atDocFrame, ignoreSmartBones, ignoreParentLayers)
         end
         ---true if a group sub-type, otherwise false
         ---Test whether a layer is a group layer, or sub-type of group layer (bone, particle, or switch).
@@ -3648,11 +3975,22 @@ MOHO = {}
         ---@return nil
         function MohoLayer:RenameAction(oldName, newName)
         end
+        ---Allows you to render the currently selected group/layer silently to PNG/JPG with various sizing options.
+        --- | Ver: 14.4
+        ---@param options MohoLayerRenderOptions --Ver: 14.4
+        ---@return boolean --Ver: 14.4
+        function MohoLayer:RenderLayerImage(options)
+        end
         ---Ver: < 9.5
         ---@param moveName string Ver: < 9.5
         ---@param placeAfterName string Ver: < 9.5
         ---@return nil
         function MohoLayer:ReorderAction(moveName, placeAfterName)
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return nil
+        function MohoLayer:ResetAllRigging()
         end
         ---Ver: < 9.5
         ---@param recursive boolean Ver: < 9.5
@@ -4661,6 +4999,11 @@ MOHO = {}
             ---@return number
             function MohoLayer.ParticleLayer:Damping()
             end
+            ---Added in version 14.4
+            --- | Ver: 14.4
+            ---@return boolean --Ver: 14.4
+            function MohoLayer.ParticleLayer:EmitInOrder()
+            end
             ---Ver: < 9.5
             ---@return boolean
             function MohoLayer.ParticleLayer:EvenlySpaced()
@@ -4725,6 +5068,16 @@ MOHO = {}
             ---@return boolean --the orientation status of the particles
             function MohoLayer.ParticleLayer:Orientation()
             end
+            ---Added in version 14.4
+            --- | Ver: 14.4
+            ---@return number --Ver: 14.4
+            function MohoLayer.ParticleLayer:PlaybackTimeShift()
+            end
+            ---Added in version 14.4
+            --- | Ver: 14.4
+            ---@return number --Ver: 14.4
+            function MohoLayer.ParticleLayer:PreviewPercentage()
+            end
             ---Ver: < 9.5
             ---@return boolean
             function MohoLayer.ParticleLayer:RandomStartTime()
@@ -4751,6 +5104,12 @@ MOHO = {}
             ---@param spread number Ver: < 9.5
             ---@return nil
             function MohoLayer.ParticleLayer:SetDirection(angle, spread)
+            end
+            ---Added in version 14.4
+            --- | Ver: 14.4
+            ---@param emitInOrder boolean --Ver: 14.4
+            ---@return nil
+            function MohoLayer.ParticleLayer:SetEmitInOrder(emitInOrder)
             end
             ---Ver: < 9.5
             ---@param evenlySpaced boolean Ver: < 9.5
@@ -4786,6 +5145,18 @@ MOHO = {}
             ---@param orient boolean True to orient the particles, otherwise false | Ver: < 9.5
             ---@return nil
             function MohoLayer.ParticleLayer:SetOrientation(orient)
+            end
+            ---Added in version 14.4
+            --- | Ver: 14.4
+            ---@param frames number --Ver: 14.4
+            ---@return nil
+            function MohoLayer.ParticleLayer:SetPlaybackTimeShift(frames)
+            end
+            ---Added in version 14.4
+            --- | Ver: 14.4
+            ---@param percent number --Ver: 14.4
+            ---@return nil
+            function MohoLayer.ParticleLayer:SetPreviewPercentage(percent)
             end
             ---Re-randomizes the particle simulation. Enter a random number for a random particle effect, or some known number to get back to an older simulation.
             ---For example:
@@ -5611,6 +5982,23 @@ MOHO = {}
     ---@field fReplaceMismatchedBones boolean --Ver: 11.0
     ---@field fReplaceMismatchedVectors boolean --Ver: 11.0
     MohoLayerRefSyncOptions = {}
+    ---@class MohoLayerRenderOptions
+    ---Default values are listed below, in the descriptions of the properties.
+    ---See also: MohoLayer:RenderLayerImage
+    ---@field debugResult boolean --false - display the output image in the GUI (useful for debugging scripts) | Ver: 14.4
+    ---@field embedColorProfile boolean --false - embed a color profile in the output image | Ver: 14.4
+    ---@field frame number --default is 0 | Ver: 14.4
+    ---@field imageExtension string --"png" - can also be "jpg" or an empty string "" to produce no image output | Ver: 14.4
+    ---@field imagePath string --the path of the rendered image | Ver: 14.4
+    ---@field layerBounds BBox --the bounds of the rendered image in document space | Ver: 14.4
+    ---@field maxDimension number --1024 - maximum size of the rendered result (pixels) | Ver: 14.4
+    ---@field mesh M_Mesh3D --pass in a mesh object if you want to have Moho generate a mesh (can be NULL) | Ver: 14.4
+    ---@field minDimension number --8 - minimum size of the rendered result (pixels) | Ver: 14.4
+    ---@field polyCountX number --20 - when building a mesh, how many polygons in the X direction (not used if polyDensity > 0) | Ver: 14.4
+    ---@field polyCountY number --20 - when building a mesh, how many polygons in the Y direction (not used if polyDensity > 0) | Ver: 14.4
+    ---@field polyDensity number --10 - how many pixels per polygon (approximately). A value of 10 would mean that each square covers about 10 pixels in each direction. | Ver: 14.4
+    ---@field trimResult boolean --true | Ver: 14.4
+    MohoLayerRenderOptions = {}
     ---@class MohoPhysicsOptions
     ---@field fDensity number --Ver: < 9.5
     ---@field fEnableMotor boolean --Ver: < 9.5
@@ -5779,8 +6167,9 @@ MOHO = {}
         ---Ver: < 9.5
         ---@param where Point Ver: < 9.5
         ---@param pickWidth number|nil Default: 3 | Ver: < 9.5
+        ---@param ignoreLayer MohoLayer|nil --Added in version 14.4 | Default: NULL | Ver: 14.4
         ---@return MohoLayer
-        function LM_View.MohoView:PickGlobalLayer(where, pickWidth)
+        function LM_View.MohoView:PickGlobalLayer(where, pickWidth, ignoreLayer)
         end
         ---Ver: < 9.5
         ---@param where Point Ver: < 9.5
@@ -5891,6 +6280,8 @@ MOHO = {}
     ---@field drawingStartVec Vector2 --Added in version 11 | Ver: 11.0
     ---@field drawingVec Vector2 --Added in version 11 | Ver: 11.0
     ---@field eraser boolean --Added in version 10 | Ver: 10.0
+    ---@field isPenEvent boolean --Added in version 14.4 | Ver: 14.4
+    ---@field mouseBut number --See Mouse button constants | Ver: 14.4
     ---@field penPressure number --The current pen pressure (if a drawing tablet is being used). Pen pressure can vary from 0.0 to 1.0. If the user is working with a mouse, and not a drawing tablet, the pen pressure will always be 0.0. | Ver: < 9.5
     ---@field pt Point --The pixel location of the current mouse event. | Ver: < 9.5
     ---@field shiftKey boolean --True if the shift key is down, otherwise false. | Ver: < 9.5
@@ -6444,6 +6835,11 @@ MOHO = {}
         ---@return nil
         function M_Mesh:AdvancedCurveSimplification(curveID, frame, reductionEpsilon, curveEpsilon, splitThreshold)
         end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return boolean --Ver: 14.4
+        function M_Mesh:AllPointsUnbound()
+        end
         --- | Ver: 11.0
         ---@return boolean
         function M_Mesh:AnimatedShapeOrder()
@@ -6586,6 +6982,11 @@ MOHO = {}
         ---@return number
         function M_Mesh:GroupID(group)
         end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return number --Ver: 14.4
+        function M_Mesh:InverseSkiaScaleFactor()
+        end
         --- | Ver: < 9.5
         ---@param curve M_Curve Ver: < 9.5
         ---@return number
@@ -6595,6 +6996,11 @@ MOHO = {}
         ---@param shape M_Shape Ver: 12.0
         ---@return number
         function M_Mesh:IsShapeValid(shape)
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return boolean --Ver: 14.4
+        function M_Mesh:IsSkiaScaleFactorSet()
         end
         ---Lower a shape in the stacking order.
         --- | Ver: < 9.5
@@ -6721,6 +7127,12 @@ MOHO = {}
         ---@return nil
         function M_Mesh:SetCurveInterpretation(interp)
         end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@param scaleFactor number --Ver: 14.4
+        ---@return nil
+        function M_Mesh:SetSkiaScaleFactor(scaleFactor)
+        end
         ---Access a shape in the mesh. The id is the "depth" in the stack of the shape and, for any particular shape, this could vary over time (e.g. "raise shape" or "lower to back" will change  the shape ids). (Contrast this to M_Shape : ShapeID which gives a unique and fixed identifier for a shape.)
         --- | Ver: < 9.5
         ---@param id number Shape identifier - shape 0 is at the back of the stack; shape (M_Mesh:CountShapes()-1) is at the top | Ver: < 9.5
@@ -6747,6 +7159,11 @@ MOHO = {}
         ---@param angleTolerance number Ver: < 9.5
         ---@return nil
         function M_Mesh:SimplifyCurve(curveID, angleTolerance)
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return number --Ver: 14.4
+        function M_Mesh:SkiaScaleFactor()
         end
         --- | Ver: 11.0
         ---@return nil
@@ -6889,11 +7306,23 @@ MOHO = {}
         ---@return number
         function M_Mesh3D:DefaultEdgeWidth()
         end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@param path string --Ver: 14.4
+        ---@return nil
+        function M_Mesh3D:ExportOBJ(path)
+        end
         ---Get the properties of a particular face in the mesh.
         --- | Ver: < 9.5
         ---@param id number Face identifier | Ver: < 9.5
         ---@return M_Face3D --a face in the mesh
         function M_Mesh3D:Face(id)
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@param path string --Ver: 14.4
+        ---@return nil
+        function M_Mesh3D:ImportOBJ(path)
         end
         ---Gets the properties for a given material.
         --- | Ver: < 9.5
@@ -7317,6 +7746,14 @@ MOHO = {}
         ---@return number --bone identifier
         function M_Skeleton:BoneID(bone)
         end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@param boneID number --Ver: 14.4
+        ---@param sampleVec Vector2 --Ver: 14.4
+        ---@param normalize boolean|nil --Ver: 14.4
+        ---@return number --Ver: 14.4
+        function M_Skeleton:BoneInfluence(boneID, sampleVec, normalize)
+        end
         ---Returns the number of child bones attached to the given bone.
         --- | Ver: < 9.5
         ---@param id number Ver: < 9.5
@@ -7382,6 +7819,13 @@ MOHO = {}
         ---@param considerParents boolean|nil Default: true | Ver: 13.5.2
         ---@return M_BoneGroup
         function M_Skeleton:GroupForBone(boneID, considerParents)
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@param id number --Ver: 14.4
+        ---@param frame number --Ver: 14.4
+        ---@return boolean --Ver: 14.4
+        function M_Skeleton:HasTargetedChildren(id, frame)
         end
         ---Runs the inverse kinematics solver in order to move a chain of bones to reach a specified target point. The specified bone will move as necessary in order for its tip to touch the given target.
         --- | Ver: < 9.5
@@ -7537,6 +7981,11 @@ MOHO = {}
         ---@return boolean
         function M_Style:ArePropertiesEqual(style)
         end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@return string --Ver: 14.4
+        function M_Style:Name()
+        end
         ---Ver: 14.0
         ---@param gradientType number See gradient constants | Ver: 14.0
         ---@param allowTransparency boolean|nil Default: false | Ver: 14.0
@@ -7557,6 +8006,12 @@ MOHO = {}
         ---@param haloOnly boolean Ver: < 9.5
         ---@return nil
         function M_Style:SetHalo(haloRadius, blurRadius, haloColor, haloOnly)
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@param name string --Ver: 14.4
+        ---@return nil
+        function M_Style:SetName(name)
         end
         ---Applies a shading effect.
         ---Ver: < 9.5
@@ -7660,6 +8115,14 @@ MOHO = {}
         ---@param alignMessage string See the description for possible values. | Ver: 11.1
         ---@return nil
         function ScriptInterface:AlignLayers(alignMessage)
+        end
+        ---Added in version 14.4
+        --- | Ver: 14.4
+        ---@param a1 number --Ver: 14.4
+        ---@param a2 number --Ver: 14.4
+        ---@param threshold number|nil --Ver: 14.4
+        ---@return boolean --Ver: 14.4
+        function ScriptInterface:AnglesEquivalent(a1, a2, threshold)
         end
         ---	Returns the path to Moho's application data
         --- Path to the top-level application data directory.
@@ -8161,8 +8624,10 @@ MOHO = {}
         end
         ---Ver: < 9.5
         ---@param fromShape M_Shape Ver: < 9.5
+        ---@param skipFill boolean|nil --Added in version 14.4 | Default: false | Ver: 14.4
+        ---@param skipLine boolean|nil --Added in version 14.4 | Default: false | Ver: 14.4
         ---@return nil
-        function ScriptInterface:PickStyleProperties(fromShape)
+        function ScriptInterface:PickStyleProperties(fromShape, skipFill, skipLine)
         end
         ---When the user specifies things like line width, blur radius, and shadow offset in Moho, they enter a value in pixels. However, behind the scenes, these values are stored in "document coordinates". This allows an animation to be rendered at different resolutions while still looking correct. This function will convert between pixels and document coordinates.
         --- | Ver: < 9.5
@@ -8188,14 +8653,22 @@ MOHO = {}
         ---@return nil
         function ScriptInterface:PlaceLayerInGroup(child, group, top, isUndoable)
         end
+        ---Open file in the default app, or display it in the Finder/Explorer, etc.
+        --- | Ver: 14.4
+        ---@param path string --Ver: 14.4
+        ---@return nil
+        function ScriptInterface:PresentFile(path)
+        end
         ---Ver: 11.0
         ---@return nil
         function ScriptInterface:PurgeTracingImage()
         end
         ---Ver: < 9.5
         ---@param toShape M_Shape Ver: < 9.5
+        ---@param skipFill boolean|nil --Added in version 14.4 | Default: false | Ver: 14.4
+        ---@param skipLine boolean|nil --Added in version 14.4 | Default: false | Ver: 14.4
         ---@return nil
-        function ScriptInterface:PushStyleProperties(toShape)
+        function ScriptInterface:PushStyleProperties(toShape, skipFill, skipLine)
         end
         ---Ver: < 9.5
         ---@return nil
@@ -8214,12 +8687,13 @@ MOHO = {}
         ---@return M_Shape
         function ScriptInterface:SelectedShape()
         end
-        --- Set the current time.
-        --- | Ver: < 9.5 | Ver: 9.5
+        ---Set the current frame (time)
+        --- | Ver: < 9.5 | Ver: 9.5 | Ver: 14.4
         ---@param frame number Frame number | Ver: < 9.5
-        ---@param outAccess LM_SecureAccess|nil Default: nil | Ver: 9.5
+        ---@param updateUI boolean|nil Default: true | Ver: 9.5
+        ---@param enableBoneDynamics boolean|nil --This allows you to capture Dynamic / Controlled bone positions/angles/scale in script - when traversing the timeline | Default: false | Ver: 14.4
         ---@return nil
-        function ScriptInterface:SetCurFrame(frame, outAccess)
+        function ScriptInterface:SetCurFrame(frame, updateUI, enableBoneDynamics)
         end
         ---Ver: 11.0
         ---@param width number Ver: 11.0
