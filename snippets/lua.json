@@ -323,7 +323,7 @@
             "    end",
             "    ",
             "    moho.document:SetDirty()",
-            "    moho.document:PrepUndo(nil)",
+            "    moho.document:PrepUndo()",
             "    ",
             "    -- Your code here",
             "    ${2:}",
