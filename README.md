@@ -50,8 +50,8 @@ To get the best autocomplete, type checking, and IntelliSense experience, follow
 
 In general:
 
-* Use `.` when accessing properties
-* Use `:` when calling methods
+* Use `.` when accessing properties.
+* Use `:` when calling methods.
 
 Example from the Moho API:
 
@@ -71,47 +71,75 @@ Using the correct syntax allows Lua Language Server to provide more accurate aut
 
 For scripts that were written before installing this extension, it is recommended to explicitly specify the script type on the script table.
 
-Example:
-
 ```lua
 ---@type MohoScript
-local ExampleUtility = {}
-
-function ExampleUtility:Run(moho)
-	-- script code here
-end
+local Ab_MyScript = {}
 ```
 
 This helps Lua Language Server understand that the table represents a Moho script and enables proper autocomplete for script-related fields and functions.
 
-### Typing `moho` Function Parameters
+### Typing `moho` in Custom Functions
 
-When a function receives the `moho` parameter, Lua Language Server cannot automatically determine its type.
+When you create your own helper functions that receive a `moho` parameter, Lua Language Server cannot automatically determine its type.
 
-To enable autocomplete and type checking, add a parameter annotation above the function:
+To enable proper autocomplete and type checking, add the following annotation above the function:
 
 ```lua
 ---@param moho ScriptInterface
-function ExampleUtility:CreateLayer(moho)
+function Ab_MyScript:CreateLayer(moho)
 	local layer = moho.layer
 end
 ```
 
-The same recommendation applies to any other parameters you define. Annotating parameters allows Lua Language Server to provide proper type information and error checking.
+This is especially important for custom functions, since the type of `moho` is often lost once it is passed between functions.
 
-Example:
+For example:
 
 ```lua
----@param moho ScriptInterface
----@param layer M_Layer
+---@param layer MohoLayer
 ---@param layerName string
-function ExampleUtility:RenameLayer(moho, layer, layerName)
+function Ab_MyScript:RenameLayer(layer, layerName)
 	layer:SetName(layerName)
 end
 ```
 
-Providing type annotations wherever possible will significantly improve autocomplete accuracy and help catch errors while writing scripts.
+The same approach can be used for any additional parameters in your own functions.
 
+### Function Documentation (Optional)
+
+You can also document your custom functions with descriptions, parameter information, and return values. These descriptions appear in hover tooltips and autocomplete information.
+
+```lua
+--- Renames a layer.
+---@param layer MohoLayer The layer to rename.
+---@param layerName string The new layer name.
+---@return boolean True if the rename operation succeeded.
+function Ab_MyScript:RenameLayer(layer, layerName)
+	layer:SetName(layerName)
+	return true
+end
+```
+
+### Multiple Possible Types
+
+If a parameter or return value can have multiple possible types, use the `|` operator:
+
+```lua
+---@param value string|boolean|nil
+function Ab_MyScript:SetValue(value)
+	-- function code here
+end
+```
+
+You can use any combination of supported types:
+
+```lua
+---@param layer MohoLayer|nil
+---@param name string|number
+---@return string|boolean|nil
+```
+
+This allows Lua Language Server to understand all valid types and provide more accurate autocomplete, type checking, and error reporting.
 
 ## Credits
 
