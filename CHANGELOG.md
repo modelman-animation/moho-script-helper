@@ -2,6 +2,26 @@
 
 All notable changes to the "moho-script-helper" extension will be documented in this file.
 
+## [1.1.1] - 2026-06-21
+
+### Added
+- Nested support functions for improved script organization
+- Moho 14.4 API support
+
+### Changed
+- `PrepUndo(nil)` is now `PrepUndo()` — cleaner syntax (nil is optional)
+- Updated snippets to use the new `PrepUndo()` format
+- Name, Version, Creator, Description, and ColorizeIcon functions are now optional (no more errors if omitted)
+
+### Fixed
+- PrepUndo function now properly supports nil (error handling improved)
+
+### Credits
+- Thanks to [MohoScripting.com](https://mohoscripting.com/) for API documentation
+- Special thanks to the Moho community for feedback and support
+
+---
+
 ## [1.1.0] - 2026-06-21
 
 ### Added

@@ -2,7 +2,7 @@
   "name": "moho-script-helper",
   "displayName": "Moho Script Helper",
   "description": "Lua autocomplete and stubs for Moho scripting",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "publisher": "Modelman",
   "icon": "icon.png",
   "repository": {
