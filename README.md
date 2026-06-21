@@ -42,6 +42,77 @@ Lua autocomplete, stubs, and snippets for Moho scripting.
 4. Start typing `MOHO.` or `LM.` or `LM.GUI.` — autocomplete will appear instantly!
 5. To create a new script from scratch, type `snm` (for a menu script) or `snt` (for a tool script) and press Enter. Then type your desired script name — it will automatically update throughout the entire script!
 
+## Type Hinting Recommendations
+
+To get the best autocomplete, type checking, and IntelliSense experience, follow these recommendations when writing Moho scripts.
+
+### Properties vs Methods
+
+In general:
+
+* Use `.` when accessing properties
+* Use `:` when calling methods
+
+Example from the Moho API:
+
+```lua
+local layer = moho.layer
+
+-- Property access
+local layerName = layer.fName
+
+-- Method call
+local layerType = layer:LayerType()
+```
+
+Using the correct syntax allows Lua Language Server to provide more accurate autocomplete and type checking.
+
+### Typing Existing Scripts
+
+For scripts that were written before installing this extension, it is recommended to explicitly specify the script type on the script table.
+
+Example:
+
+```lua
+---@type MohoScript
+local ExampleUtility = {}
+
+function ExampleUtility:Run(moho)
+	-- script code here
+end
+```
+
+This helps Lua Language Server understand that the table represents a Moho script and enables proper autocomplete for script-related fields and functions.
+
+### Typing `moho` Function Parameters
+
+When a function receives the `moho` parameter, Lua Language Server cannot automatically determine its type.
+
+To enable autocomplete and type checking, add a parameter annotation above the function:
+
+```lua
+---@param moho ScriptInterface
+function ExampleUtility:CreateLayer(moho)
+	local layer = moho.layer
+end
+```
+
+The same recommendation applies to any other parameters you define. Annotating parameters allows Lua Language Server to provide proper type information and error checking.
+
+Example:
+
+```lua
+---@param moho ScriptInterface
+---@param layer M_Layer
+---@param layerName string
+function ExampleUtility:RenameLayer(moho, layer, layerName)
+	layer:SetName(layerName)
+end
+```
+
+Providing type annotations wherever possible will significantly improve autocomplete accuracy and help catch errors while writing scripts.
+
+
 ## Credits
 
 Special thanks to the [MohoScripting.com](https://mohoscripting.com/) community for their documentation and support.

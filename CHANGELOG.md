@@ -15,6 +15,9 @@ All notable changes to the "moho-script-helper" extension will be documented in 
 
 ### Fixed
 - PrepUndo function now properly supports nil (error handling improved)
+- Dialog support
+- LM message return values are now correctly handled
+- Helper delete function cleanup and error handling improvements
 
 ### Credits
 - Thanks to [MohoScripting.com](https://mohoscripting.com/) for API documentation
